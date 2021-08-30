@@ -7,6 +7,8 @@ if (!isset($_SESSION['email'])) {
 }
 $email=$_SESSION['email'];
 $course_det=$_GET['course_det'];
+date_default_timezone_set('Asia/Kolkata');
+$timestrap=date("Y-m-d h:i:s");
 
 ?>
 
@@ -15,11 +17,21 @@ $course_det=$_GET['course_det'];
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../assets/images/classroom_icon.png" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Course</title>
     <link rel="stylesheet" href="../assets/css/create_course_style.css">
     <style>
+         input[type="date"]:before {
+    content: attr(placeholder) !important;
+    margin-right: 0.5em;
+  }
+  input[type="date"]:focus:before,
+  input[type="date"]:valid:before {
+    content: "";
+  }
         label 
         {
             border: 2px solid transparent;
@@ -53,9 +65,15 @@ $course_det=$_GET['course_det'];
         <div class="form__group">
             <input type="text" placeholder="Assignment Description" class="form__input"  name="ass_decp"/>
         </div>
+        <div class="form__group">
+            <input type="date" placeholder="Assignment due date" class="form__input"  name="due_date"/>
+        </div>
+        <div class="form__group">
+            <input type="number" placeholder="Assignment Max mark" class="form__input"  name="max_mark"/>
+        </div>
         
         <div class="form__group1">
-            <input type="file" id="actual-btn" name="ass"/>
+            <input type="file" id="actual-btn" name="ass" required/>
         </div>
         
         <input class="btn" type="submit" name="submit" value="Add Course" style="cursor: pointer;">
@@ -80,6 +98,8 @@ if (isset($_POST["submit"]))
  {
      $assig_dec=$_POST['ass_decp'];
      $ass_name=$_POST['ass_name'];
+     $due_date=$_POST['due_date'];
+     $max_mark=$_POST['max_mark'];
      #retrieve file title
         $title = $ass_name;
      
@@ -95,14 +115,14 @@ if (isset($_POST["submit"]))
     move_uploaded_file($tname, $uploads_dir.'/'.$pname);
  
     #sql query to insert into database
-    $sql = "INSERT INTO course_assingments(`couse_code`, `assingment_description`,`assignment_name`, `file_name`, `staff_mail_id`) VALUES ('$course_det','$assig_dec','$ass_name','$pname','$email');";
+    $sql = "INSERT INTO course_assingments(`couse_code`, `assingment_description`,`assignment_name`, `file_name`, `staff_mail_id`,`due_date`,`max_mark`) VALUES ('$course_det','$assig_dec','$ass_name','$pname','$email','$due_date','$max_mark');";
     $result=mysqli_query($conn,$sql);
     if($result){
  
-    echo "File Sucessfully uploaded";
+    header('location: teacher_home.php');
     }
     else{
-        echo "Error";
+        echo mysqli_error($conn);
     }
     
 }

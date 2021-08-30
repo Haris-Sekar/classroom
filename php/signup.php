@@ -6,6 +6,8 @@ include('./conn.php');
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../assets/images/classroom_icon.png" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
@@ -75,7 +77,7 @@ if(isset($_POST['submit'])){
     $roll=$_POST['roll'];
     $dob=$_POST['dob'];
     $roll_number=$_POST['roll_number'];
-    $sql_reg="INSERT INTO users(`email`, `name`, `phone number`, `password`, `date of birth`, `roll_of_person`, `roll_number`, `time_strap`) VALUES ('$email','$name','$phone','$password','$dob','$roll','$roll_number','$timestrap')";
+    $sql_reg="INSERT INTO users(`email`, `name`, `phone number`, `password`, `date of birth`, `roll_of_person`, `roll_number`) VALUES ('$email','$name','$phone','$password','$dob','$roll','$roll_number')";
     $res_reg=mysqli_query($conn,$sql_reg);
     if(mysqli_error($conn)){
         echo mysqli_error($conn);

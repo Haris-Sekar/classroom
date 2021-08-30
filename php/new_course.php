@@ -1,11 +1,24 @@
 <?php
 include('./conn.php');
 session_start();
-if (!isset($_SESSION['email'])) {
-  $_SESSION['msg'] = "You have to log in first";
-  header('location: login.php');
-}
 $email=$_SESSION['email'];
+
+$sql_verify_teacher="SELECT * FROM users WHERE email='$email'";
+$res_verify_teacher=mysqli_query($conn,$sql_verify_teacher);
+
+while($row_verify=mysqli_fetch_array($res_verify_teacher)){
+    $autho=$row_verify['roll_of_person'];
+}
+if($autho!='teacher'){
+    session_destroy();
+    header('location: ../index.php');
+
+}
+if (!isset($_SESSION['email']) ) {
+    $_SESSION['msg'] = "You have to log in first";
+    session_destroy();
+    header('location: ../index.php');
+}
 
 
 ?>
@@ -15,6 +28,8 @@ $email=$_SESSION['email'];
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../assets/images/classroom_icon.png" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Course</title>
@@ -38,6 +53,9 @@ $email=$_SESSION['email'];
         
         <div class="form__group">
             <input type="text" placeholder="Class Name" class="form__input" name="classname" />
+        </div>
+        <div class="form__group">
+            <input type="text" placeholder="Google Meet Link" class="form__input" name="gmeet_link" />
         </div>
         
         <input class="btn" type="submit" name="submit" value="Add Course">
@@ -75,8 +93,8 @@ if(isset($_POST['submit'])){
     $course_name=$_POST['course_name'];
     $course_decp=$_POST['couuse_decp'];
     $course_class=$_POST['classname'];
-
-    $sql="INSERT INTO `staff_course_proposal`(`staff_mail_id`, `course_code`, `course_name`, `class_name`, `course_description`) VALUES ('$email','$key1','$course_name','$course_class','$course_decp')";
+    $gmeet_link=$_POST['gmeet_link'];
+    $sql="INSERT INTO `staff_course_proposal`(`staff_mail_id`, `course_code`, `course_name`, `class_name`, `course_description`,`gmeet_link`) VALUES ('$email','$key1','$course_name','$course_class','$course_decp','$gmeet_link')";
     $res=mysqli_query($conn,$sql);
     if(!mysqli_error($conn)){
         ?>

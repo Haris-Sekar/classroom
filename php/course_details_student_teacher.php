@@ -11,15 +11,10 @@ $sql_course_fetch="SELECT * FROM staff_course_proposal WHERE course_code='$couse
 $res_course_fetch=mysqli_query($conn,$sql_course_fetch);
 while($row=mysqli_fetch_array($res_course_fetch,MYSQLI_ASSOC)){
     $course_name=$row['course_name'];
-	$gmeet_link=$row['gmeet_link'];
 }
 $sql_course_assign_fetch="SELECT * FROM course_assingments WHERE couse_code='$couse_code'";
 $res_course_assign_fetch=mysqli_query($conn,$sql_course_assign_fetch);
-$sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE `course_code`='$couse_code'";
-    $res_person_tot_count1=mysqli_query($conn,$sql_person_tot_count1);
-    while($row_count=mysqli_fetch_array($res_person_tot_count1,MYSQLI_ASSOC)){
-    $no_persons=$row_count['no_persons'];
-}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -32,53 +27,9 @@ $sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-		<style>
-body {font-family: Arial;}
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid white;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-}
-
-/* Style the buttons inside the tab */
-.tablinks {
-  background-color: inherit;
-  float: left;
-  border: none;
-
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 20px;
-  color: black;
-  box-shadow: inset 0 0 0 0px white;
-  letter-spacing: 1px;
-
-
-
-}
-
-/* Change background color of buttons on hover */
-.tablinks:hover {
-  color: #ddbdfc;;
-  box-shadow: inset 0 0 0 0px white;
-
-}
-
-
-
-</style>
 	</head>
 	<body class="is-preload">
-	<div class="tab">
-  <a href="./course_details_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Course stream</button></a>
-		<a href="./classroom_person_fetch_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">People (<?php echo $no_persons;?>)</button></a>
-	</div>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -87,7 +38,7 @@ body {font-family: Arial;}
 						<div class="inner">
 
 							<!-- Logo -->
-								<a href="student_home.php" class="logo">
+								<a href="teacher_home.php" class="logo">
 									<span class="symbol"><img src="../assets/images/classroom_icon.png" alt="" /></span><span class="title">Classroom Assignment area</span>
 								</a>
 
@@ -117,15 +68,13 @@ body {font-family: Arial;}
                               $res_course_fetch1=mysqli_query($conn,$sql_course_fetch1);
                               $row2=mysqli_fetch_array($res_course_fetch1,MYSQLI_ASSOC);
                            ?>
-							<li><a href="course_details_student.php?course_code=<?php echo $row['course_code'];?>"><?php echo $row2['course_name'].'-'.$row2['class_name'] ?></a></li>
+							<li><a href="course_details_student_teacher.php?course_code=<?php echo $row['course_code'];?>"><?php echo $row2['course_name'].'-'.$row2['class_name'] ?></a></li>
 							<?php } ?>
 						</ul>
 					</nav>
                     <div class="course_name_box">
                         <img src="../assets/images/course_display images.jpg" alt="img" class="img-course_name_box">
                         <div class="course_name_text"><?php echo $course_name;?></div>
-						<div class="assignment_name"><a href="<?php echo $gmeet_link; ?>">Join GMeet Now</a></div>
-
                     </div>
                     <?php 
                     while($row2=mysqli_fetch_array($res_course_assign_fetch)){
