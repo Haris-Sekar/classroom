@@ -161,7 +161,6 @@ body {font-family: Arial;}
           <div class="course_name_box">
             <img src="../assets/images/course_display images.jpg" alt="img" class="img-course_name_box">
 						<div class="settings">
-              <img src="../assets/images/settings.png" alt="" srcset="" class="setting-img-course_name_box">
             </div>
             <div class="course_name_text">
               <?php echo $course_name;?>
