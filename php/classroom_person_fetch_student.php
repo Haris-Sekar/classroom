@@ -133,16 +133,20 @@
 					<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
-						  <li><a href="./logout.php">Logout</a></li>
-							<li><a href="./new_course.php">Add New Course</a></li>
+							<li><a href="./logout.php">Logout</a></li>
+							<li><a href="./join_course.php">Join a class</a></li>
 
                             <?php
                             
-                            $sql_course_fetch="SELECT * FROM staff_course_proposal WHERE staff_mail_id='$email'";
+                            $sql_course_fetch="SELECT * FROM join_course WHERE leaner_mail_id='$email'";
                             $res_course_fetch=mysqli_query($conn,$sql_course_fetch);
                             while($row=mysqli_fetch_array($res_course_fetch,MYSQLI_ASSOC)){
+                              $code=$row['course_code'];
+                              $sql_course_fetch1="SELECT * FROM staff_course_proposal WHERE course_code='$code'";
+                              $res_course_fetch1=mysqli_query($conn,$sql_course_fetch1);
+                              $row2=mysqli_fetch_array($res_course_fetch1,MYSQLI_ASSOC);
                            ?>
-							<li><a href="course_details.php?course_code=<?php echo $row['course_code'];?>"><?php echo $row['course_code']."-".$row['course_name'].'-'.$row['class_name'] ?></a></li>
+							<li><a href="course_details_student.php?course_code=<?php echo $row['course_code'];?>"><?php echo $row2['course_name'].'-'.$row2['class_name'] ?></a></li>
 							<?php } ?>
 						</ul>
 					</nav>
