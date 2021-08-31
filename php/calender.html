@@ -1,78 +1,263 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/style_calender.css">
-    <script >
-// function that creates dummy data for demonstration
-function createDummyData() {
-  var date = new Date();
-  var data = {};
-
-  for (var i = 0; i < 10; i++) {
-    data[date.getFullYear() + i] = {};
-
-    for (var j = 0; j < 12; j++) {
-      data[date.getFullYear() + i][j + 1] = {};
-
-      for (var k = 0; k < Math.ceil(Math.random() * 10); k++) {
-        var l = Math.ceil(Math.random() * 28);
-
-        try {
-          data[date.getFullYear() + i][j + 1][l].push({
-            startTime: "10:00",
-            endTime: "12:00",
-            text: "Some Event Here"
-          });
-        } catch (e) {
-          data[date.getFullYear() + i][j + 1][l] = [];
-          data[date.getFullYear() + i][j + 1][l].push({
-            startTime: "10:00",
-            endTime: "12:00",
-            text: "Some Event Here"
-          });
-        }
-      }
-    }
-  }
-
-  return data;
-}
-
-// creating the dummy static data
-var data = createDummyData();
-
-// initializing a new calendar object, that will use an html container to create itself
-var calendar = new Calendar(
-  "calendarContainer", // id of html container for calendar
-  "small", // size of calendar, can be small | medium | large
-  [
-    "Wednesday", // left most day of calendar labels
-    3 // maximum length of the calendar labels
-  ],
-  [
-    "#E91E63", // primary color
-    "#C2185B", // primary dark color
-    "#FFFFFF", // text color
-    "#F8BBD0" // text dark color
-  ]
-);
-
-// initializing a new organizer object, that will use an html container to create itself
-var organizer = new Organizer(
-  "organizerContainer", // id of html container for calendar
-  calendar, // defining the calendar that the organizer is related to
-  data // giving the organizer the static data that should be displayed
-);
-
-    </script>
-
+    <meta charset="utf-8" />
+    <title>Calendar.js - Minimized -</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/calendarjs.min.css" />
+    <script src="../assets/js/calendarjs.min.js"></script>
 </head>
+
 <body>
-    <div id="calendarContainer"></div>
-    <div id="organizerContainer"></div>
+    <h1 id="header">Welcome to Classroom Calendar</h1>
+
+    <div class="contents">
+        <div id="myCalendar" style="max-width: 800px;">
+            <p>Some data that should be cleared.</p>
+        </div>
+        <br>
+    </div>
 </body>
+
+<script>
+    var calendarInstance = new calendarJs("myCalendar", {
+        exportEventsEnabled: true,
+        manualEditingEnabled: true,
+        showTimesInMainCalendarEvents: false,
+        minimumDayHeight: 0,
+        manualEditingEnabled: true,
+        organizerName: "Your Name",
+        organizerEmailAddress: "your@email.address",
+        visibleDays: [0, 1, 2, 3, 4, 5, 6]
+    });
+
+
+    calendarInstance.addEvents(getEvents());
+
+    function turnOnEventNotifications() {
+        calendarInstance.setOptions({
+            eventNotificationsEnabled: true
+        });
+    }
+
+    function setEvents() {
+        calendarInstance.setEvents(getEvents());
+    }
+
+    function removeEvent() {
+        calendarInstance.removeEvent(new Date(), "Test Title 2");
+    }
+
+    function daysInMonth(year, month) {
+        return new Date(year, month + 1, 0).getDate();
+    }
+
+    function setOptions() {
+        calendarInstance.setOptions({
+            minimumDayHeight: 70,
+            manualEditingEnabled: false,
+            exportEventsEnabled: false,
+            showDayNumberOrdinals: false,
+            fullScreenModeEnabled: false,
+            maximumEventsPerDayDisplay: 0,
+            showTimelineArrowOnFullDayView: false,
+            maximumEventTitleLength: 10,
+            maximumEventDescriptionLength: 10,
+            maximumEventLocationLength: 10,
+            maximumEventGroupLength: 10,
+            showDayNamesInMainDisplay: false,
+            tooltipsEnabled: false,
+            visibleDays: [0, 1, 2, 3, 4],
+            allowEventScrollingOnMainDisplay: true,
+            showExtraMainDisplayToolbarButtons: false
+        });
+    }
+
+    function onlyDotsDisplay() {
+        calendarInstance.setOptions({
+            useOnlyDotEventsForMainDisplay: true
+        });
+    }
+
+    function setCurrentDisplayDate() {
+        var newDate = new Date();
+        newDate.setMonth(newDate.getMonth() + 3);
+
+        calendarInstance.setCurrentDisplayDate(newDate);
+    }
+
+    function getEvents() {
+        var previousDay = new Date(),
+            today9 = new Date(),
+            today11 = new Date(),
+            tomorrow = new Date(),
+            firstDayInNextMonth = new Date(),
+            lastDayInNextMonth = new Date(),
+            today = new Date(),
+            today3HoursAhead = new Date(),
+            previousYear = new Date(),
+            nextYear = new Date(),
+            overlappingEvent1 = new Date(),
+            overlappingEventTo1 = new Date(),
+            overlappingEvent2 = new Date(),
+            overlappingEventTo2 = new Date(),
+            overlappingEvent3 = new Date(),
+            overlappingEventTo3 = new Date(),
+            overlappingEvent4 = new Date(),
+            overlappingEventTo4 = new Date(),
+            overlappingEvent5 = new Date(),
+            overlappingEventTo5 = new Date();
+
+        previousDay.setDate(previousDay.getDate() - 1);
+        today11.setHours(11);
+        tomorrow.setDate(today11.getDate() + 1);
+        today9.setHours(9);
+
+        firstDayInNextMonth.setDate(1);
+        firstDayInNextMonth.setDate(firstDayInNextMonth.getDate() + daysInMonth(firstDayInNextMonth.getFullYear(), firstDayInNextMonth.getMonth()));
+
+        lastDayInNextMonth.setDate(1);
+        lastDayInNextMonth.setMonth(lastDayInNextMonth.getMonth() + 1);
+        lastDayInNextMonth.setDate(lastDayInNextMonth.getDate() + daysInMonth(lastDayInNextMonth.getFullYear(), lastDayInNextMonth.getMonth()) - 1);
+
+        today.setHours(21, 59, 0, 0);
+        today.setDate(today.getDate() + 3);
+        today3HoursAhead.setHours(23, 59, 0, 0);
+        today3HoursAhead.setDate(today3HoursAhead.getDate() + 3);
+
+        previousYear.setFullYear(previousYear.getFullYear() - 1);
+        nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+        overlappingEvent1.setDate(overlappingEvent1.getDate() - 3);
+        overlappingEventTo1.setDate(overlappingEventTo1.getDate() - 3);
+        overlappingEvent2.setDate(overlappingEvent2.getDate() - 3);
+        overlappingEventTo2.setDate(overlappingEventTo2.getDate() - 3);
+        overlappingEvent3.setDate(overlappingEvent3.getDate() - 3);
+        overlappingEventTo3.setDate(overlappingEventTo3.getDate() - 3);
+        overlappingEvent4.setDate(overlappingEvent4.getDate() - 3);
+        overlappingEventTo4.setDate(overlappingEventTo4.getDate() - 3);
+        overlappingEvent5.setDate(overlappingEvent5.getDate() - 3);
+        overlappingEventTo5.setDate(overlappingEventTo5.getDate() - 3);
+        overlappingEvent1.setHours(0, 10, 0, 0);
+        overlappingEventTo1.setHours(1, 10, 0, 0);
+        overlappingEvent2.setHours(0, 35, 0, 0);
+        overlappingEventTo2.setHours(1, 35, 0, 0);
+        overlappingEvent3.setHours(1, 20, 0, 0);
+        overlappingEventTo3.setHours(2, 20, 0, 0);
+        overlappingEvent4.setHours(2, 0, 0, 0);
+        overlappingEventTo4.setHours(3, 0, 0, 0);
+        overlappingEvent5.setHours(3, 30, 0, 0);
+        overlappingEventTo5.setHours(4, 40, 0, 0);
+
+        return [{
+            from: overlappingEvent1,
+            to: overlappingEventTo1,
+            title: "Overlapping Event 1",
+            description: "deeadharshini tion of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "eaitnff",
+            group: "Group 1"
+        }, {
+            from: previousDay,
+            to: previousDay,
+            title: "Previous Day",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            isAllDay: true,
+            color: "red",
+            colorText: "#FFFF00",
+            colorBorder: "#00FF00",
+            repeatEvery: 5,
+            id: "1234-5678-9",
+            group: "Group 1"
+        }, {
+            from: today11,
+            to: tomorrow,
+            title: "how are you",
+            description: "deepathaldja has been added, so it can be shown in the pop-up dialog.",
+            location: "ajp class",
+            color: "red",
+            colorText: "#FFFF00",
+            colorBorder: "#00FF00",
+            isAllDay: false,
+            group: "group 1"
+        }, {
+            from: tomorrow,
+            to: today11,
+            title: "Title Bad (should not show)",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            isAllDay: false,
+            group: "group 1"
+        }, {
+            from: today9,
+            to: today9,
+            title: "Title 2",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            isAllDay: true,
+            group: "Group 1",
+            url: "https://www.google.com/"
+        }, {
+            from: firstDayInNextMonth,
+            to: firstDayInNextMonth,
+            title: "First Day 1",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            isAllDay: true,
+            color: "#00FF00",
+            colorText: "#FF0000",
+            repeatEvery: 4,
+            group: "Group 2"
+        }, {
+            from: firstDayInNextMonth,
+            to: firstDayInNextMonth,
+            title: "First Day 2",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            isAllDay: true,
+            color: "#00FF00",
+            colorText: "#FF0000",
+            repeatEvery: 4,
+            group: "Group 2"
+        }, {
+            from: lastDayInNextMonth,
+            to: lastDayInNextMonth,
+            title: "Last Day 1",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            location: "Teams Meeting",
+            isAllDay: true,
+            color: "#0000FF",
+            repeatEvery: 2,
+            group: "Group 2"
+        }, {
+            from: today,
+            to: today3HoursAhead,
+            title: "Regular Event",
+            description: "This is a another description of the event that has been added, so it can be shown in the pop-up dialog.",
+            repeatEvery: 1,
+            repeatEveryExcludeDays: [6, 0],
+            repeatEnds: new Date(today.getFullYear() + 1, 0, 1),
+            group: "Group 1"
+        }];
+    }
+
+    function addNewHoliday() {
+        var today = new Date();
+
+        var holiday1 = {
+            day: today.getDate(),
+            month: today.getMonth() + 1,
+            title: "A New Holiday",
+        };
+
+        var holiday2 = {
+            day: today.getDate(),
+            month: today.getMonth() + 1,
+            title: "Another Holiday",
+        };
+
+        calendarInstance.addHolidays([holiday1, holiday2]);
+    }
+</script>
+
 </html>

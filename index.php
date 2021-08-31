@@ -17,14 +17,14 @@ include('./php/conn.php');
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-in-container">
-		<form action="" method="POST">
+		<form action="" method="POST" >
 			<h1>Sign in</h1>
 			<div class="social-container">
-            <input type="submit" value="Google Login" >
+            <!-- <input type="submit" value="Google Login" > -->
 			</div>
 			<span>or use your account</span>
-			<input type="email" placeholder="Email" name="email" require/>
-			<input type="password" placeholder="Password" name="password" require />
+			<input type="email" placeholder="Email" name="email" required/>
+			<input type="password" placeholder="Password" name="password" required />
 			<input type="submit" value="Login" class="button" name="submit">
 		</form>
 	</div>

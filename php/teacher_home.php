@@ -81,6 +81,9 @@ if (!isset($_SESSION['email'])) {
 </style>
 	</head>
 	<body class="is-preload">
+	<a href="./calender.html" class="logo">
+		<span class="symbol"><img src="../assets/images/calender.png" alt=""style="width:50px;height:50px;margin:5px;" /></span><span class="title"></span>
+	</a>
 	<div class="tab">
 	<a href="./teacher_home.php"><button class="tablinks" style="color: #ddbdfc;">Course Proposed</button></a>
 		<a href="./teacher_classroom_det.php"><button class="tablinks" >Course Joined</button></a>

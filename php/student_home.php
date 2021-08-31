@@ -19,6 +19,9 @@ $email=$_SESSION['email'];
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+	<a href="./calender.html" class="logo">
+		<span class="symbol"><img src="../assets/images/calender.png" alt=""style="width:50px;height:50px;margin:5px;" /></span><span class="title"></span>
+	</a>
 		<!-- Wrapper -->
 			<div id="wrapper">
 
