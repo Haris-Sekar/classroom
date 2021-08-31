@@ -78,6 +78,7 @@ body {font-family: Arial;}
 	}
 }
 
+
 /* Change background color of buttons on hover */
 .tablinks:hover {
   color: #ddbdfc;;
