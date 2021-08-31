@@ -46,11 +46,8 @@
 }
 
 /* Style the buttons inside the tab */
-.tablinks {
-  background-color: inherit;
-  float: left;
+.tablinks {  
   border: none;
-
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
@@ -58,10 +55,28 @@
   font-size: 20px;
   color: black;
   box-shadow: inset 0 0 0 0px white;
-  letter-spacing: 1px;
-
-
-
+  letter-spacing: .5px; 
+}
+@media screen and (max-width:530px)
+{
+	.tablinks{
+		margin-top:30px;
+		font-size:15px;
+	}
+}
+@media screen and (max-width:400px)
+{
+	.tablinks{
+		margin-top:30px;
+		font-size:12px;
+	}
+}
+@media screen and (max-width:430px)
+{ 
+	.title{
+		font-size:13px;
+       letter-spacing: .3px; 
+	}
 }
 
 /* Change background color of buttons on hover */

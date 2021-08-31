@@ -19,19 +19,11 @@ body {
 }
 
 .user {
-    width: 400px;
-    max-width: 300px;
+    width: 600px;
+    max-width: 600px;
     padding: 30px;
     margin: 14vh auto;
 }
-
-@media screen and(max-width:400px) {
-    .user {
-        width: 300px;
-    }
-}
-
-.user__header {}
 
 .user__title {
     font-size: 34px;

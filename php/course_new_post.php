@@ -22,7 +22,7 @@ $timestrap=date("Y-m-d h:i:s");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Course</title>
-    <link rel="stylesheet" href="../assets/css/create_course_style.css">
+    <link rel="stylesheet" href="../assets/css/create_course.css">
     <style>
          input[type="date"]:before {
     content: attr(placeholder) !important;
@@ -93,12 +93,14 @@ if (isset($_POST["submit"]))
      $mat_name=$_POST['ass_name'];
      #retrieve file title
         $title = rand(0,100000);
-     
     $count=count($_FILES['ass']['name']);
+    for ($i=0; $i < $count; $i++) { 
+        $temp_arr[$i] = $title.'-'.$_FILES["ass"]["name"][$i];
+    }
     for ($i=0; $i <$count ; $i++) { 
             # code...
             #file name with a random number so that similar dont get replaced
-        $pname = $title."-".rand(100000,999999).'-'.$_FILES["ass"]["name"][$i];
+        $pname = $title.'-'.$_FILES["ass"]["name"][$i];
     
         #temporary file name to store file
         $tname = $_FILES["ass"]["tmp_name"][$i];
@@ -109,7 +111,10 @@ if (isset($_POST["submit"]))
         move_uploaded_file($tname, $uploads_dir.'/'.$pname);
         echo $course_det;
 
-        $sql = "INSERT INTO `course_posts`(`couse_code`,`post_description`,`post_name`, `mulitple_file_id`, `file_name`, `staff_mail_id`) VALUES('$course_det','$mat_dec','$mat_name','$title','$pname','$email');";
+        
+    }
+    $pname=implode("//",$temp_arr);
+    $sql = "INSERT INTO `course_posts`(`couse_code`,`post_description`,`post_name`, `mulitple_file_id`, `file_name`, `staff_mail_id`) VALUES('$course_det','$mat_dec','$mat_name','$title','$pname','$email');";
         $result=mysqli_query($conn,$sql);
         if($result){
     
@@ -118,7 +123,6 @@ if (isset($_POST["submit"]))
         else{
             echo mysqli_error($conn);
         }
-    }
     
     
 }

@@ -25,7 +25,7 @@ $res_course_fetch=mysqli_query($conn,$sql_course_fetch);
 while($row=mysqli_fetch_array($res_course_fetch,MYSQLI_ASSOC)){
     $course_name=$row['course_name'];
 }
-$sql_course_assign_fetch="SELECT * FROM course_assingments WHERE couse_code='$couse_code' ORDER BY assignment_id DESC";
+$sql_course_assign_fetch="SELECT * FROM course_posts WHERE couse_code='$couse_code' ORDER BY timestamp";
 $res_course_assign_fetch=mysqli_query($conn,$sql_course_assign_fetch);
 
 $sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE `course_code`='$couse_code'";
@@ -88,7 +88,6 @@ body {font-family: Arial;}
        letter-spacing: .3px; 
 	}
 }
-
 /* Change background color of buttons on hover */
 .tablinks:hover {
   color: #ddbdfc;;
@@ -168,7 +167,7 @@ body {font-family: Arial;}
               <?php echo $course_name;?>
             </div>
           </div>
-          <a href="./course_new_assignment.php?course_det=<?php echo $couse_code; ?>">
+		  <a href="./course_new_assignment.php?course_det=<?php echo $couse_code; ?>">
             <div class="course_assign_box">
                 Annonce a Assignment To the class
             </div>
@@ -178,31 +177,42 @@ body {font-family: Arial;}
                 Publish Materials To the class
             </div>
           </a>
-                
 
 
+		  <body class="is-preload">
 	<div class="tab">
-  <a href="./course_details.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Assignments</button></a>
-		<a href="./course_details_posts_teacher.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">Materials</button></a>
+  <a href="./course_details.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">Assignments</button></a>
+		<a href="./course_details_posts_teacher.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Materials</button></a>
 	</div>
-
-
-
           <?php 
-            while($row2=mysqli_fetch_array($res_course_assign_fetch)){
+            while($row2=mysqli_fetch_array($res_course_assign_fetch,MYSQLI_ASSOC)){
           ?>
           <div class="course_display_box">
-            <div class="delete"><a href="delete_assignmet.php?id=<?php echo $row2['assignment_id'];?>"><img src="../assets/images/delete.png" alt="dete icon" /></a></div>
-            <a href="sudent_works_staff_disp.php?ass_id=<?php echo $row2['assignment_id'];?>&course_code=<?php echo $couse_code; ?>"><h2><?php echo $row2['assignment_name']; ?></h2>
-            <h3><?php echo $row2['assingment_description']; ?></h3><br></a>
-            <a href="../assets/assignment_pdfs/<?php echo $row2['file_name']; ?>">
-              <div class="pdf_view">
-                <img src="https://img.icons8.com/nolan/96/folder-invoices.png" class="pdf_view_img" alt="" srcset="">
-                <p>
-                  <?php echo "-".$row2['file_name']; ?>
-                </p>
-              </div>
-            </a>
+            <div class="delete"><a href="delete_post.php?id=<?php echo $row2['post_id'];?>"><img src="../assets/images/delete.png" alt="dete icon" /></a></div>
+            <h2><?php echo $row2['post_name']; ?></h2>
+            <h3><?php echo $row2['post_description']; ?></h3><br></a>
+			<?php
+			$files=explode("//",$row2['file_name']);
+			$count=count($files);
+			for ($i=0; $i < $count; $i++) { 
+				$temp=explode(".",$files[$i]);
+				$files1[$i]=$temp[0];
+			}
+			for ($i=0; $i < $count; $i++) {
+
+				?>
+					<a href="../assets/post_pdfs/<?php echo $files[$i]; ?>">
+					<div class="pdf_view">
+						<img src="https://img.icons8.com/nolan/96/folder-invoices.png" class="pdf_view_img" alt="" srcset="">
+						<p>
+						<?php echo "-".$files1[$i]; ?>
+						</p>
+					</div>
+					</a>
+
+<?php
+			}
+			?>
                         
           </div>
           <?php 

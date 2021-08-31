@@ -18,7 +18,7 @@ if (!isset($_SESSION['email'])) {
   $_SESSION['msg'] = "You have to log in first";
   header('location: ../index.php');
 }
-$assignment_id=$_GET['id'];
+$post_id=$_GET['id'];
 
 //sql to delete a assignment
 
@@ -71,31 +71,28 @@ $assignment_id=$_GET['id'];
 </div>
 <?php
 if(isset($_POST['yes'])){
-
-
-  if($_POST['yes']=='Yes'){
-    $sql_delete_ass="DELETE FROM `course_assingments` WHERE `assignment_id` = '$assignment_id'";
+  $sql_delete_ass="DELETE FROM `course_posts` WHERE `post_id` = '$post_id'";
 
     $res_delete_ass=mysqli_query($conn,$sql_delete_ass);
     echo " Page will Refresh in<progress value='0' max='10' id='progressBar'></progress>";
-
-    header('Refresh:10; url=teacher_home.php');
-  }
-  
-else{
+    header('Refresh:5; url=teacher_home.php');
+    
+}else{
   echo " Page will Refresh in<progress value='0' max='10' id='progressBar'></progress>";
 
   header('Refresh:10; url=teacher_home.php');
   
 }
-}
-
 ?>
-<script>var timeleft = 10;
+
+
+<script>
+  var timeleft = 5;
 var downloadTimer = setInterval(function(){
   if(timeleft <= 0){
     clearInterval(downloadTimer);
   }
-  document.getElementById("progressBar").value = 10 - timeleft;
+  document.getElementById("progressBar").value = 5 - timeleft;
   timeleft -= 1;
-}, 1000);</script>
+}, 1000);
+</script>

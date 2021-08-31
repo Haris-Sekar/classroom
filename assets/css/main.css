@@ -3412,7 +3412,7 @@ input, select, textarea {
 .course_display_box {
 	border: 1px solid black	;
 	width: 55%;
-	height: 200px;
+	/* height: 200px; */
 	margin-left: 25%;
 	margin-top: 10px;
 	border-radius: 10px;
@@ -3590,6 +3590,19 @@ input, select, textarea {
 	  border: 1px solid transparent;
 	  border-radius: 50%;
   }
+  @media screen and (max-width:600px)
+{
+	.people_display{
+		margin-top:0px;
+		width: 100%;
+		font-size:15px;
+	}
+	.people_display img{
+		height: 30px;
+		width: 30px;
+
+	}
+}
   .delete img{
 	  width: 30px;
 	  height: 30px;

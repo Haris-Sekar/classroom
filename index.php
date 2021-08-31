@@ -25,7 +25,6 @@ include('./php/conn.php');
 			<span>or use your account</span>
 			<input type="email" placeholder="Email" name="email" require/>
 			<input type="password" placeholder="Password" name="password" require />
-			<a href="#">Forgot your password?</a>
 			<input type="submit" value="Login" class="button" name="submit">
 		</form>
 	</div>

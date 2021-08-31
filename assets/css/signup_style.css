@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-body{
-    margin: 50px;
+body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body{
+
+body {
     display: flex;
-    justify-content: center;
-    align-items: center;  
-    height: 100vh;  
     background: white;
+    align-items: center;
+    justify-content: center;
 }
-.container{
+
+.container {
     background: rgb(15, 15, 15);
     width: 400px;
     height: 920px;
@@ -24,24 +24,39 @@ body{
     padding: 2em;
 }
 
+@media screen and (max-width:489px) {
+    .container {
+        width: 300px;
+    }
+}
 
-.heading{
+@media screen and (max-width:372px) {
+    .container {
+        width: 200px;
+    }
+}
+
+.heading {
     font-size: 2em;
     /* margin-bottom: 0.5em; */
 }
+
 .box {
     margin: 0.2em 0;
 }
-.container .box p{
+
+.container .box p {
     color: rgba(255, 255, 255, 0.781);
 }
-.container .box div{
+
+.container .box div {
     position: relative;
     width: 100%;
     height: 40px;
     /* margin: 0.5em 0; */
 }
-.container .box input{
+
+.container .box input {
     position: absolute;
     width: 97%;
     height: 100%;
@@ -54,10 +69,11 @@ body{
     transition: all .4s
 }
 
-.container .box input:focus::placeholder{
+.container .box input:focus::placeholder {
     color: white;
 }
-.container .box div::before{
+
+.container .box div::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -68,7 +84,8 @@ body{
     border-radius: 10px;
     background: linear-gradient(to right, #ff416c, #ff4b2b);
 }
-.loginBtn{
+
+.loginBtn {
     width: 102%;
     height: 40px;
     border: none;
@@ -81,16 +98,18 @@ body{
     transition: all .4s;
 }
 
-.loginBtn:hover{
+.loginBtn:hover {
     transform: translate(-1%, 5%);
     box-shadow: 0 0 10px #ff416d65;
 }
-.text{
+
+.text {
     font-size: 0.8em;
     margin-top: 0.5em;
     text-align: center;
     color: rgba(255, 255, 255, 0.623);
 }
-.text a{
+
+.text a {
     color: rgba(255, 255, 255, 0.911);
 }

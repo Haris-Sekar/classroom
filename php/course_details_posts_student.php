@@ -1,25 +1,36 @@
 <?php
 include('./conn.php');
 session_start();
+$email=$_SESSION['email'];
+
+$sql_verify_teacher="SELECT * FROM users WHERE email='$email'";
+$res_verify_teacher=mysqli_query($conn,$sql_verify_teacher);
+
+while($row_verify=mysqli_fetch_array($res_verify_teacher)){
+    $autho=$row_verify['roll_of_person'];
+}
 if (!isset($_SESSION['email'])) {
   $_SESSION['msg'] = "You have to log in first";
   header('location: ../index.php');
 }
-$email=$_SESSION['email'];
 $couse_code=$_GET['course_code'];
-$sql_course_fetch="SELECT * FROM staff_course_proposal WHERE course_code='$couse_code'";
+$_SESSION['coursecode1']=$couse_code; 
+$sql_course_fetch="SELECT * FROM staff_course_proposal WHERE  course_code='$couse_code'";
 $res_course_fetch=mysqli_query($conn,$sql_course_fetch);
 while($row=mysqli_fetch_array($res_course_fetch,MYSQLI_ASSOC)){
     $course_name=$row['course_name'];
-	$gmeet_link=$row['gmeet_link'];
 }
-$sql_course_assign_fetch="SELECT * FROM course_assingments WHERE couse_code='$couse_code'";
+$sql_course_assign_fetch="SELECT * FROM course_posts WHERE couse_code='$couse_code' ORDER BY timestamp";
 $res_course_assign_fetch=mysqli_query($conn,$sql_course_assign_fetch);
+
 $sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE `course_code`='$couse_code'";
     $res_person_tot_count1=mysqli_query($conn,$sql_person_tot_count1);
     while($row_count=mysqli_fetch_array($res_person_tot_count1,MYSQLI_ASSOC)){
     $no_persons=$row_count['no_persons'];
 }
+
+
+
 ?>
 
 <!DOCTYPE HTML>
@@ -86,8 +97,19 @@ body {font-family: Arial;}
 }
 
 
-
 </style>
+	<link rel="shortcut icon" href="../assets/images/classroom_icon.png" />
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
+
+		<title><?php echo $course_name;?></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+
+
 	</head>
 	<body class="is-preload">
 	<div class="tab">
@@ -142,23 +164,50 @@ body {font-family: Arial;}
 						<div class="assignment_name"><a href="<?php echo $gmeet_link; ?>">Join GMeet Now</a></div>
 
                     </div>
-					<div class="tab">
-						<a href="./course_details_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Assignments</button></a>
-						<a href="./course_details_posts_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">Materials</button></a>
+
+
+	<div class="tab">
+  <a href="./course_details_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">Assignments</button></a>
+		<a href="./course_details_posts_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Materials</button></a>
+	</div>
+          <?php 
+            while($row2=mysqli_fetch_array($res_course_assign_fetch,MYSQLI_ASSOC)){
+          ?>
+          <div class="course_display_box">
+            <h2><?php echo $row2['post_name']; ?></h2>
+            <h3><?php echo $row2['post_description']; ?></h3><br></a>
+			<?php
+			$files=explode("//",$row2['file_name']);
+			$count=count($files);
+			for ($i=0; $i < $count; $i++) { 
+				$temp=explode(".",$files[$i]);
+				$files1[$i]=$temp[0];
+			}
+			for ($i=0; $i < $count; $i++) {
+
+				?>
+					<a href="../assets/post_pdfs/<?php echo $files[$i]; ?>">
+					<div class="pdf_view">
+						<img src="https://img.icons8.com/nolan/96/folder-invoices.png" class="pdf_view_img" alt="" srcset="">
+						<p>
+						<?php echo "-".$files1[$i]; ?>
+						</p>
 					</div>
-                    <?php 
-                    while($row2=mysqli_fetch_array($res_course_assign_fetch)){
-                        ?>
-					<a href="assignment_details_stud.php?assignment_id=<?php echo $row2['assignment_id'] ?>">
-						<div class="course_display_box" style="height: 120px;">
-							<p class="posed_by"><?php echo $row2['staff_mail_id']; ?></p>
-							<h2><?php echo $row2['assignment_name']; ?></h2>
-							<h3><?php echo $row2['assingment_description']; ?></h3><br>		
-						</div>
 					</a>
-<?php } ?>
+
+<?php
+			}
+			?>
+                        
+          </div>
+          <?php 
+            } 
+          ?>
 
 			</div>
+	
+  </div>	
+
 
 		<!-- Scripts -->
 			<script src="../assets/js/jquery.min.js"></script>
