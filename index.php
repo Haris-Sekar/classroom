@@ -20,7 +20,7 @@ include('./php/conn.php');
 		<form action="" method="POST">
 			<h1>Sign in</h1>
 			<div class="social-container">
-				
+            <input type="submit" value="Google Login" >
 			</div>
 			<span>or use your account</span>
 			<input type="email" placeholder="Email" name="email" require/>
