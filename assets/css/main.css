@@ -3421,6 +3421,18 @@ input, select, textarea {
 	background-color: #f9f9f7 ;
 	color: black;
 }
+.post_display_box{
+	border: 1px solid black	;
+	width: 55%;
+	height: 200px;
+	margin-left: 25%;
+	margin-top: 10px;
+	border-radius: 10px;
+	padding: 6px;
+	font-weight: 600;
+	background-color: #f9f9f7 ;
+	color: black;
+}
 .course_display_box h2{
 	font-size: 30px;
 }
@@ -3830,4 +3842,33 @@ input::-webkit-inner-spin-button {
 }
 .img_text a{
 	text-decoration: none;
+}
+
+.toogle{
+	margin-left: 480px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	font-size: 30px;
+}
+
+.posts{
+	border: 1px solid black;
+	border-left: transparent;
+	border-top: transparent;
+	border-bottom: transparent;
+	padding-right: 10px;
+	border-radius: 20px;
+
+}
+.assignmets{
+	border: 2px solid black;
+	border-left: transparent;
+	border-top: transparent;
+	border-bottom: transparent;
+	border-right: transparent;
+
+	padding-left: 10px;
+	
 }

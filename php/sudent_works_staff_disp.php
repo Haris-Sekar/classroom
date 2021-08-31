@@ -61,7 +61,8 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
 		<title>Classroom</title>
 		<link rel="shortcut icon" href="../assets/images/classroom_icon.png" />
 
-		<meta charset="utf-8" />
+		<meta charset="utf-8" /><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
@@ -137,7 +138,7 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
                             <div class="student_det_display">
                                 <?php echo $row_person1_fetch['name']; ?>
                                 <?php echo $row_person1_fetch['roll_number']; ?>
-                                <div class="marks"><form action="" method="post"><input type="number" name="marks" id="marks" value="<?php echo $row_assignment_id['mark'];?>" placeholder="<?php echo $row_assignment_id['mark'];?>">/<?php echo $max_mark;?><br><input type="submit" value="update" name="update_marks"></form></div><br><br><br>
+                                <div class="marks"><form action="" method="post"><input type="number" name="marks" id="marks" value="<?php echo $row_assignment_id['mark']; $ass_marks=$row_assignment_id['mark'];?>" placeholder="<?php echo $row_assignment_id['mark'];?>">/<?php echo $max_mark;?><br><input type="submit" value="update" name="update_marks"></form></div><br><br><br>
                                 <div class="img_text"><a href="../assets/student_assignment_pdfs/<?php echo $file_name;?>"><img src="https://img.icons8.com/nolan/96/folder-invoices.png" class="pdf_view_img" alt="" srcset=""></a><a href="../assets/student_assignment_pdfs/<?php echo $file_name;?>" class="std_file"><?php echo $file_name1;?></a></div>
                                 <div class="timestap">Handed on <?php echo $newDate.' at '.$newTime?></div>
                             </div>
@@ -148,7 +149,7 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
                         $sql_assigned="SELECT * FROM join_course WHERE course_code='$course_code'";
                         $res_assigned=mysqli_query($conn,$sql_assigned);
                         while($row_ass=mysqli_fetch_array($res_assigned,MYSQLI_ASSOC) ){
-                            $sql_assigned_ass="SELECT * FROM student_assignment_details WHERE course_code='$course_code'";
+                            $sql_assigned_ass="SELECT * FROM student_assignment_details WHERE course_code='$course_code' AND assignment_id='$assignment_id'";
                             $res_assigned_ass=mysqli_query($conn,$sql_assigned_ass);
                              while($row1=mysqli_fetch_array($res_assigned_ass)){
                                  $ass_mail=$row_ass['leaner_mail_id'];
@@ -182,11 +183,22 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
 <?php
     if(isset($_POST['update_marks'])){
         $marks=$_POST['marks'];
-        $sql_update="UPDATE `student_assignment_details` SET `mark`='$marks' WHERE assignment_id=$assignment_id;";
-        $res_update=mysqli_query($conn,$sql_update);
-        if(!mysqli_error($conn)){
-            header('Refresh: 0');
+        if($marks>$max_mark){
+            ?>
+            <script>
+                alert('Max mark is <?php echo $max_mark; ?>');
+            </script>
+        <?php
+
         }
+        else{
+            $sql_update="UPDATE `student_assignment_details` SET `mark`='$marks' WHERE assignment_id=$assignment_id;";
+            $res_update=mysqli_query($conn,$sql_update);
+            if(!mysqli_error($conn)){
+                header('Refresh: 0');
+            }
+        }
+        
     }
 ?>
 

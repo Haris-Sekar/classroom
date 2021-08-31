@@ -25,7 +25,7 @@ $res_course_fetch=mysqli_query($conn,$sql_course_fetch);
 while($row=mysqli_fetch_array($res_course_fetch,MYSQLI_ASSOC)){
     $course_name=$row['course_name'];
 }
-$sql_course_assign_fetch="SELECT * FROM course_assingments WHERE couse_code='$couse_code'";
+$sql_course_assign_fetch="SELECT * FROM course_assingments WHERE couse_code='$couse_code' ORDER BY assignment_id DESC";
 $res_course_assign_fetch=mysqli_query($conn,$sql_course_assign_fetch);
 
 $sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE `course_code`='$couse_code'";
@@ -131,10 +131,12 @@ body {font-family: Arial;}
 						<ul>
 						  <li><a href="./logout.php">Logout</a></li>
 							<li><a href="./new_course.php">Add New Course</a></li>
+              <li><a href="./join_course_techer.php">Join a class</a></li>
+
 
                             <?php
                             
-                            $sql_course_fetch="SELECT * FROM staff_course_proposal WHERE staff_mail_id='$email'";
+                            $sql_course_fetch="SELECT * FROM staff_course_proposal WHERE staff_mail_id='$email' ";
                             $res_course_fetch=mysqli_query($conn,$sql_course_fetch);
                             while($row=mysqli_fetch_array($res_course_fetch,MYSQLI_ASSOC)){
                            ?>
@@ -154,6 +156,11 @@ body {font-family: Arial;}
           <a href="./course_new_assignment.php?course_det=<?php echo $couse_code; ?>">
             <div class="course_assign_box">
                 Annonce a Assignment To the class
+            </div>
+          </a>
+          <a href="./course_new_post.php?course_det=<?php echo $couse_code; ?>">
+            <div class="course_assign_box">
+                Publish Materials To the class
             </div>
           </a>
           <?php 

@@ -59,24 +59,17 @@ $timestrap=date("Y-m-d h:i:s");
     
     <form class="form" method="POST" action="" enctype="multipart/form-data">
         <div class="form__group">
-            <input type="text" placeholder="Assignment Name" class="form__input"  name="ass_name"/>
+            <input type="text" placeholder="Material Name" class="form__input"  name="ass_name"/>
         </div>
         
         <div class="form__group">
-            <input type="text" placeholder="Assignment Description" class="form__input"  name="ass_decp"/>
-        </div>
-        <div class="form__group">
-            <input type="date" placeholder="Assignment due date" class="form__input"  name="due_date"/>
-        </div>
-        <div class="form__group">
-            <input type="number" placeholder="Assignment Max mark" class="form__input"  name="max_mark"/>
-        </div>
-        
+            <input type="text" placeholder="Material Description" class="form__input"  name="ass_decp"/>
+        </div>       
         <div class="form__group1">
-            <input type="file" id="actual-btn" name="ass" required/>
+            <input type="file" id="actual-btn" name="ass[]" multiple required/>
         </div>
         
-        <input class="btn" type="submit" name="submit" value="Add Assignment" style="cursor: pointer;">
+        <input class="btn" type="submit" name="submit" value="Add Course" style="cursor: pointer;">
     </form>
     <a href="../php/teacher_home.php" style="text-align: center; text-decoration:none;"  class="btn">Home</a>
 </div>
@@ -96,34 +89,37 @@ actualBtn.addEventListener('change', function(){
 if (isset($_POST["submit"]))
 
  {
-     $assig_dec=$_POST['ass_decp'];
-     $ass_name=$_POST['ass_name'];
-     $due_date=$_POST['due_date'];
-     $max_mark=$_POST['max_mark'];
+     $mat_dec=$_POST['ass_decp'];
+     $mat_name=$_POST['ass_name'];
      #retrieve file title
-        $title = $ass_name;
+        $title = rand(0,100000);
      
-    #file name with a random number so that similar dont get replaced
-     $pname = rand(1000,10000)."-".$_FILES["ass"]["name"];
- 
-    #temporary file name to store file
-    $tname = $_FILES["ass"]["tmp_name"];
-   
-     #upload directory path
-    $uploads_dir = '../assets/assignment_pdfs';
-    #TO move the uploaded file to specific location
-    move_uploaded_file($tname, $uploads_dir.'/'.$pname);
- 
-    #sql query to insert into database
-    $sql = "INSERT INTO course_assingments(`couse_code`, `assingment_description`,`assignment_name`, `file_name`, `staff_mail_id`,`due_date`,`max_mark`) VALUES ('$course_det','$assig_dec','$ass_name','$pname','$email','$due_date','$max_mark');";
-    $result=mysqli_query($conn,$sql);
-    if($result){
- 
-    header('location: teacher_home.php');
+    $count=count($_FILES['ass']['name']);
+    for ($i=0; $i <$count ; $i++) { 
+            # code...
+            #file name with a random number so that similar dont get replaced
+        $pname = $title."-".rand(100000,999999).'-'.$_FILES["ass"]["name"][$i];
+    
+        #temporary file name to store file
+        $tname = $_FILES["ass"]["tmp_name"][$i];
+    
+        #upload directory path
+        $uploads_dir = '../assets/post_pdfs';
+        #TO move the uploaded file to specific location
+        move_uploaded_file($tname, $uploads_dir.'/'.$pname);
+        echo $course_det;
+
+        $sql = "INSERT INTO `course_posts`(`couse_code`,`post_description`,`post_name`, `mulitple_file_id`, `file_name`, `staff_mail_id`) VALUES('$course_det','$mat_dec','$mat_name','$title','$pname','$email');";
+        $result=mysqli_query($conn,$sql);
+        if($result){
+    
+        header('location: teacher_home.php');
+        }
+        else{
+            echo mysqli_error($conn);
+        }
     }
-    else{
-        echo mysqli_error($conn);
-    }
+    
     
 }
  
