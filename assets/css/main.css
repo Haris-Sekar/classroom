@@ -3385,7 +3385,13 @@ input, select, textarea {
 		height: 100px;
 		width: 90%;
 		margin-left: 5%;
-	}.course_name_text{
+	}
+	.assignment_name
+{
+		font-size: 15px;
+		
+}
+	.course_name_text{
 		font-size: 17px;
 		color: white;
 		margin-top: -100px;
