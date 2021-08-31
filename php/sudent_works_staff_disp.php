@@ -111,11 +111,11 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
 
 
                     <div class="turned_in_dashbord">
-                        <div class="turned_in_count" onclick="turnedIn()"><?php echo $turned_in;?><div class="turndedintext">Turned in</div></div>
+                        <div class="turned_in_count" onclick="turnedIn()"><?php echo $turned_in;?><div class="turndedintext">Turned in </div></div>
                         <div class="assigned_count" onclick="assigned()"><?php echo $assinged;?><div class="turndedintext">Assigned</div></div>
                     </div>
 
-                    <div class="turned_display">
+                    <div class="turned_display" id="turned">
                         <?php
                             while($row_assignment_id=mysqli_fetch_array($res_student_fetch,MYSQLI_ASSOC)){
                                 $email=$row_assignment_id['student_mail_id'];
@@ -128,6 +128,7 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
                                 $array_date=explode(" ",$time_date);
                                 $date=$array_date[0];
                                 $time=$array_date[1];
+                                $newTime=date('h:i:s a',strtotime($time));
                                 $newDate = date("d-m-Y", strtotime($date));  
                                 
                                 while($row_person1_fetch=mysqli_fetch_array($res_person1_fetch,MYSQLI_ASSOC)){
@@ -138,9 +139,31 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
                                 <?php echo $row_person1_fetch['roll_number']; ?>
                                 <div class="marks"><form action="" method="post"><input type="number" name="marks" id="marks" value="<?php echo $row_assignment_id['mark'];?>" placeholder="<?php echo $row_assignment_id['mark'];?>">/<?php echo $max_mark;?><br><input type="submit" value="update" name="update_marks"></form></div><br><br><br>
                                 <div class="img_text"><a href="../assets/student_assignment_pdfs/<?php echo $file_name;?>"><img src="https://img.icons8.com/nolan/96/folder-invoices.png" class="pdf_view_img" alt="" srcset=""></a><a href="../assets/student_assignment_pdfs/<?php echo $file_name;?>" class="std_file"><?php echo $file_name1;?></a></div>
-                                <div class="timestap">Handed on: <?php echo $newDate.' at: '.$time?></div>
+                                <div class="timestap">Handed on <?php echo $newDate.' at '.$newTime?></div>
                             </div>
                             <?php } } ?>
+                    </div>
+                    <div class="assigned_display" id="assigned">
+                        <?php
+                        $sql_assigned="SELECT * FROM join_course WHERE course_code='$course_code'";
+                        $res_assigned=mysqli_query($conn,$sql_assigned);
+                        while($row_ass=mysqli_fetch_array($res_assigned,MYSQLI_ASSOC) ){
+                            $sql_assigned_ass="SELECT * FROM student_assignment_details WHERE course_code='$course_code'";
+                            $res_assigned_ass=mysqli_query($conn,$sql_assigned_ass);
+                             while($row1=mysqli_fetch_array($res_assigned_ass)){
+                                 $ass_mail=$row_ass['leaner_mail_id'];
+                                 $assigned_mail=$row1['student_mail_id'];
+                                 if($ass_mail!=$assigned_mail){    
+                                    $sql_person1_fetch="SELECT * FROM users WHERE email='$ass_mail'";
+                                    $res_person1_fetch=mysqli_query($conn,$sql_person1_fetch);
+                                    while($row_person1_fetch=mysqli_fetch_array($res_person1_fetch,MYSQLI_ASSOC)){                                                   
+                                    ?>
+                                <div class="student_det_display">
+                                    <?php echo $row_person1_fetch['name']; ?>
+                                    <?php echo $row_person1_fetch['roll_number']; ?>
+                                    Missing
+                                </div>
+                    <?php } }  } }?>
                     </div>
 
 
@@ -153,3 +176,31 @@ while($row_max=mysqli_fetch_array($res_max_mark,MYSQLI_ASSOC)){
 			<script src="../assets/js/main.js"></script>
 	</body>
 </html>
+
+
+
+<?php
+    if(isset($_POST['update_marks'])){
+        $marks=$_POST['marks'];
+        $sql_update="UPDATE `student_assignment_details` SET `mark`='$marks' WHERE assignment_id=$assignment_id;";
+        $res_update=mysqli_query($conn,$sql_update);
+        if(!mysqli_error($conn)){
+            header('Refresh: 0');
+        }
+    }
+?>
+
+
+
+<script>
+    function turnedIn(){
+        document.getElementById('turned').style.visibility='visible';
+        document.getElementById('assigned').style.visibility='hidden';
+    }
+    function assigned(){
+        document.getElementById('turned').style.visibility='hidden';
+        document.getElementById('assigned').style.visibility='visible';
+        document.getElementById('assigned').style.marginTop="-150px";
+    }
+
+</script>

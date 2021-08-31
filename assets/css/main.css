@@ -3744,6 +3744,8 @@ input, select, textarea {
 	height: 100%;
 	font-size: 100px;
 	text-align: center;
+	cursor: pointer;
+ 
 }
 .assigned_count{
 	border: 2px solid transparent;
@@ -3752,6 +3754,8 @@ input, select, textarea {
 	font-size: 100px;
 	text-align: center;
 	float: right;
+	cursor: pointer;
+
 }
 .turndedintext{
 	margin-top: -30px;
@@ -3759,10 +3763,21 @@ input, select, textarea {
 	font-size: 25px;
 }
 .turned_display{
-	border: 2px solid black;
+	visibility: hidden;
+	border: 2px solid transparent;
 	display: flex;
 	width: 100%;
 	flex-wrap: wrap;
+	margin: 20px 40px;
+}
+.assigned_display{
+		visibility: hidden;
+
+	border: 2px solid transparent;
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	margin: 20px 40px;
 }
 
 .student_det_display {
