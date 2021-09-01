@@ -1,7 +1,8 @@
 # 3d classroom
 
 You can directly register a new user
-or login details are given below
+or login details are given below 
+note: both login teacher and student are same it checkes the roll by their mail-id's
 
 This is a teacher login
 
