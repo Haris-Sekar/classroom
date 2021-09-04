@@ -29,50 +29,20 @@ if (!isset($_SESSION['email'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-        <style>
-
-.tab {
-  overflow: hidden;
-  border: 1px solid white;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-}
-
-.tablinks {
-  background-color: inherit;
-  float: left;
-  border: none;
-
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 20px;
-  color: black;
-  box-shadow: inset 0 0 0 0px white;
-  letter-spacing: 1px;
-
-
-
-}
-
-/* Change background color of buttons on hover */
-.tablinks:hover {
-  color: #ddbdfc;;
-  box-shadow: inset 0 0 0 0px white;
-
-}
-</style>
+      
 </head>
 	<body class="is-preload">
+		<a href="./calender.html" class="logo">
+		<span class="symbol"><img src="../assets/images/calender.png" alt=""style="width:50px;height:50px;margin:5px;" /></span><span class="title"></span>
+	</a>
+	<div class="tab">
+        <a href="./teacher_home.php"><button class="tablinks">Course Proposed</button></a>
+		<a href="./teacher_classroom_det.php"><button class="tablinks" style="color: #ddbdfc;">Course Joined</button></a>
+</div>
 
 <div id="wrapper">
 
-<div class="tab">
-<a href="./teacher_home.php"><button class="tablinks">Course Proposed</button></a>
-		<a href="./teacher_classroom_det.php"><button class="tablinks" style="color: #ddbdfc;">Course Joined</button></a>
-</div>
+
 				<!-- Header -->
 					<header id="header">
 						<div class="inner">

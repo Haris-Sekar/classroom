@@ -15,7 +15,8 @@ include('./conn.php');
 </head>
 <body>
     <form action="" method="post">
-    <div class="container">
+        <div class="outer">
+        <div class="container">
         <p class="heading">Sign Up</p>
         <div class="box">
             <p>Name</p>
@@ -61,6 +62,9 @@ include('./conn.php');
         </div> 
         <input type="submit" class="loginBtn" name="submit" value="Sign Up">
     </div>
+
+        </div>
+   
     </form>
 </body>
 </html>

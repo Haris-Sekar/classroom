@@ -29,56 +29,7 @@ if (!isset($_SESSION['email'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-		<style>
-
-.tab {
-  overflow: hidden;
-  border: 1px solid white;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-}
-
-.tablinks {  
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 20px;
-  color: black;
-  box-shadow: inset 0 0 0 0px white;
-  letter-spacing: .5px; 
-}
-@media screen and (max-width:530px)
-{
-	.tablinks{
-		margin-top:30px;
-		font-size:15px;
-	}
-}
-@media screen and (max-width:400px)
-{
-	.tablinks{
-		margin-top:30px;
-		font-size:12px;
-	}
-}
-@media screen and (max-width:430px)
-{ 
-	.title{
-		font-size:13px;
-       letter-spacing: .3px; 
-	}
-}
-
-/* Change background color of buttons on hover */
-.tablinks:hover {
-  color: #ddbdfc;;
-  box-shadow: inset 0 0 0 0px white;
-
-}
-</style>
+	 
 	</head>
 	<body class="is-preload">
 	<a href="./calender.html" class="logo">

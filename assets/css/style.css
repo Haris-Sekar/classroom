@@ -49,12 +49,14 @@
             color: #FFFFFF;
             font-size: 12px;
             font-weight: bold;
-            padding: 12px 45px;
+            width: 200px;
+            padding: 12px;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: transform 80ms ease-in;
             cursor: pointer;
         }
+        
         
         .button:active {
             transform: scale(0.95);
@@ -89,7 +91,7 @@
             }
         }
         
-        input {
+        input[TYPE=email],input[type=password]{
             background-color: #eee;
             border: none;
             padding: 12px 15px;
@@ -256,3 +258,10 @@
             color: #3c97bf;
             text-decoration: none;
         }
+        
+        @media screen and (max-width:500px) {
+            .button{ 
+                width: 100%;
+                max-width: 200px;
+            }
+         }
