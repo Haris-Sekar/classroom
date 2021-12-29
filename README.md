@@ -11,7 +11,7 @@ password: ramesh@123
 
 This one is Student Login
 email id: hariss.19cse@kongu.edu
-password: 1400
+password: 123456
 
 then you can use our classroom!
 
