@@ -10,7 +10,7 @@ email id: ramesh.csedpt@kongu.edu
 password: ramesh@123
 
 This one is Student Login
-email id: hariss.19cse@kongu.edu
+email id: sharis14003@gmail.com
 password: 123456
 
 then you can use our classroom!
