@@ -15,7 +15,7 @@ password: 123456
 
 then you can use our classroom!
 
-We hope u enjoy it 
+We hope you enjoy it 
 
 thank you,
 
