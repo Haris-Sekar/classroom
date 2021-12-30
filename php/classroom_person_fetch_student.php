@@ -34,7 +34,62 @@
 <html>
 
 
-	<head> 
+	<head>
+	<style>
+
+.tab {
+  overflow: hidden;
+  border: 1px solid white;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style the buttons inside the tab */
+.tablinks {  
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 20px;
+  color: black;
+  box-shadow: inset 0 0 0 0px white;
+  letter-spacing: .5px; 
+}
+@media screen and (max-width:530px)
+{
+	.tablinks{
+		margin-top:30px;
+		font-size:15px;
+	}
+}
+@media screen and (max-width:400px)
+{
+	.tablinks{
+		margin-top:30px;
+		font-size:12px;
+	}
+}
+@media screen and (max-width:430px)
+{ 
+	.title{
+		font-size:13px;
+       letter-spacing: .3px; 
+	}
+}
+
+/* Change background color of buttons on hover */
+.tablinks:hover {
+  color: #ddbdfc;;
+  box-shadow: inset 0 0 0 0px white;
+
+}
+
+
+/* Create an active/current tablink class */
+
+</style>
 	<link rel="shortcut icon" href="../assets/images/classroom_icon.png" />
 	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 

@@ -32,11 +32,67 @@ $sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-  
+		<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid white;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style the buttons inside the tab */
+.tablinks {  
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 20px;
+  color: black;
+  box-shadow: inset 0 0 0 0px white;
+  letter-spacing: .5px; 
+}
+@media screen and (max-width:530px)
+{
+	.tablinks{
+		margin-top:30px;
+		font-size:15px;
+	}
+}
+@media screen and (max-width:400px)
+{
+	.tablinks{
+		margin-top:30px;
+		font-size:12px;
+	}
+}
+@media screen and (max-width:430px)
+{ 
+	.title{
+		font-size:13px;
+       letter-spacing: .3px; 
+	}
+}
+
+
+/* Change background color of buttons on hover */
+.tablinks:hover {
+  color: #ddbdfc;;
+  box-shadow: inset 0 0 0 0px white;
+
+}
+
+
+
+</style>
 	</head>
 	<body class="is-preload">
 	<div class="tab">
-        <a href="./course_details_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Course stream</button></a>
+  <a href="./course_details_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Course stream</button></a>
 		<a href="./classroom_person_fetch_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">People (<?php echo $no_persons;?>)</button></a>
 	</div>
 		<!-- Wrapper -->
@@ -81,15 +137,12 @@ $sql_person_tot_count1="SELECT count( * ) as no_persons FROM `join_course` WHERE
 							<?php } ?>
 						</ul>
 					</nav>
-					<div class="assout">
-						<div class="course_name_box">
-							<img src="../assets/images/course_display images.jpg" alt="img" class="img-course_name_box">
-							<div class="course_name_text"><?php echo $course_name;?></div>
-							<div class="assignment_name"><a href="<?php echo $gmeet_link; ?>">GMeet Now</a></div>
+                    <div class="course_name_box">
+                        <img src="../assets/images/course_display images.jpg" alt="img" class="img-course_name_box">
+                        <div class="course_name_text"><?php echo $course_name;?></div>
+						<div class="assignment_name"><a href="<?php echo $gmeet_link; ?>">Join GMeet Now</a></div>
 
-						</div>
-					</div>
-                   
+                    </div>
 					<div class="tab">
 						<a href="./course_details_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks" style="color: #ddbdfc;">Assignments</button></a>
 						<a href="./course_details_posts_student.php?course_code=<?php echo $couse_code;?>"><button class="tablinks">Materials</button></a>

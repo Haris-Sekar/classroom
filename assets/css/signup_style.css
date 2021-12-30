@@ -6,29 +6,35 @@ body {
 }
 
 body {
-    background: white;
-}
-.outer{
-    
     display: flex;
+    background: white;
     align-items: center;
     justify-content: center;
-    align-content: center;
 }
 
 .container {
     background: rgb(15, 15, 15);
-    width: 100%;
-    max-width: 400px; 
+    width: 400px;
+    height: 920px;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     color: white;
     padding: 2em;
-    box-shadow: 5px 10px 18px red inset;
 }
-  
+
+@media screen and (max-width:489px) {
+    .container {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width:372px) {
+    .container {
+        width: 200px;
+    }
+}
 
 .heading {
     font-size: 2em;
